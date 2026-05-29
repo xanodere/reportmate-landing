@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReportMate — Automatic Client Reports for Agencies</title>
+  <meta name="description" content="Stop spending 3 hours building client reports. ReportMate pulls your data from Google Analytics, Meta Ads & Google Ads and sends a beautiful PDF to your clients automatically." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --gray: #6b7280;
+      --gray-light: #f3f4f6;
+      --accent: #6366f1;
+      --accent-dark: #4f46e5;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid #e5e7eb;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .logo { font-weight: 700; font-size: 1.2rem; letter-spacing: -0.5px; }
+    .logo span { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      max-width: 720px;
+      margin: 5rem auto 4rem;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      background: #ede9fe;
+      color: var(--accent-dark);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    h1 em { color: var(--accent); font-style: normal; }
+    .subtitle {
+      font-size: 1.15rem;
+      color: var(--gray);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* FORM */
+    .form-wrapper {
+      display: flex;
+      gap: 0.5rem;
+      max-width: 460px;
+      margin: 0 auto 1rem;
+    }
+    .form-wrapper input {
+      flex: 1;
+      padding: 0.85rem 1.1rem;
+      border: 1.5px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-wrapper input:focus { border-color: var(--accent); }
+    .form-wrapper button {
+      padding: 0.85rem 1.5rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+    .form-wrapper button:hover { background: var(--accent-dark); }
+    .form-note { font-size: 0.82rem; color: var(--gray); }
+
+    /* SOCIAL PROOF */
+    .proof {
+      text-align: center;
+      margin: 1.5rem auto;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+    .proof strong { color: var(--black); }
+
+    /* PAIN */
+    .pain {
+      background: var(--gray-light);
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+    .pain h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.5px; }
+    .pain p { color: var(--gray); max-width: 540px; margin: 0 auto 2rem; }
+    .pain-items {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .pain-item {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      text-align: left;
+      width: 220px;
+    }
+    .pain-item .icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .pain-item p { font-size: 0.9rem; color: var(--gray); margin: 0; }
+
+    /* HOW */
+    .how {
+      max-width: 860px;
+      margin: 5rem auto;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+    .how h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
+    .how .sub { color: var(--gray); margin-bottom: 3rem; }
+    .steps {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .step {
+      flex: 1;
+      min-width: 200px;
+      max-width: 250px;
+      text-align: left;
+    }
+    .step-num {
+      width: 36px; height: 36px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.85rem;
+    }
+    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .step p { font-size: 0.88rem; color: var(--gray); }
+
+    /* FEATURES */
+    .features {
+      background: var(--gray-light);
+      padding: 4.5rem 1.5rem;
+    }
+    .features h2 {
+      text-align: center;
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 3rem;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid #e5e7eb;
+    }
+    .feature-card .icon { font-size: 1.6rem; margin-bottom: 0.75rem; }
+    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .feature-card p { font-size: 0.88rem; color: var(--gray); }
+
+    /* PRICING */
+    .pricing {
+      max-width: 860px;
+      margin: 5rem auto;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+    .pricing h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
+    .pricing .sub { color: var(--gray); margin-bottom: 3rem; }
+    .plans {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .plan {
+      border: 1.5px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 2rem 1.75rem;
+      width: 240px;
+      text-align: left;
+    }
+    .plan.featured {
+      border-color: var(--accent);
+      position: relative;
+    }
+    .plan.featured::before {
+      content: "Most popular";
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .plan-name { font-size: 0.85rem; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+    .plan-price { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 0.2rem; }
+    .plan-price span { font-size: 1rem; font-weight: 400; color: var(--gray); }
+    .plan-desc { font-size: 0.85rem; color: var(--gray); margin-bottom: 1.25rem; }
+    .plan ul { list-style: none; }
+    .plan ul li { font-size: 0.88rem; padding: 0.3rem 0; display: flex; gap: 0.5rem; }
+    .plan ul li::before { content: "✓"; color: var(--accent); font-weight: 700; }
+
+    /* CTA */
+    .cta-section {
+      background: var(--accent);
+      padding: 5rem 1.5rem;
+      text-align: center;
+      color: white;
+    }
+    .cta-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.5px; }
+    .cta-section p { opacity: 0.85; margin-bottom: 2.5rem; font-size: 1.05rem; }
+    .cta-form {
+      display: flex;
+      gap: 0.5rem;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .cta-form input {
+      flex: 1;
+      padding: 0.85rem 1.1rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    .cta-form button {
+      padding: 0.85rem 1.4rem;
+      background: var(--black);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.82rem;
+      color: var(--gray);
+      border-top: 1px solid #e5e7eb;
+    }
+
+    /* SUCCESS */
+    .success-msg {
+      display: none;
+      background: #d1fae5;
+      color: #065f46;
+      padding: 0.75rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 0.75rem;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Report<span>Mate</span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge">Early Access — Free for first 50 users</div>
+  <h1>Stop spending hours on<br /><em>client reports</em></h1>
+  <p class="subtitle">ReportMate pulls your data from Google Analytics, Meta Ads & Google Ads and sends a beautiful PDF report to your clients — automatically, every month.</p>
+
+  <div class="form-wrapper">
+    <input type="email" id="email-hero" placeholder="your@email.com" />
+    <button onclick="subscribe('email-hero', 'success-hero')">Get early access</button>
+  </div>
+  <div class="success-msg" id="success-hero">You're on the list. We'll be in touch soon.</div>
+  <p class="form-note">No credit card. No spam. Cancel anytime.</p>
+</section>
+
+<div class="proof">
+  <strong>47 freelancers & agencies</strong> already on the waitlist
+</div>
+
+<!-- PAIN -->
+<section class="pain">
+  <h2>You know the feeling.</h2>
+  <p>End of the month. You're copy-pasting numbers from 4 different tabs into a Google Doc again.</p>
+  <div class="pain-items">
+    <div class="pain-item">
+      <div class="icon">⏱️</div>
+      <p>3–5 hours per client, every single month</p>
+    </div>
+    <div class="pain-item">
+      <div class="icon">😤</div>
+      <p>Boring, repetitive work that doesn't grow your business</p>
+    </div>
+    <div class="pain-item">
+      <div class="icon">💸</div>
+      <p>Time you could spend on higher-value client work</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <h2>How it works</h2>
+  <p class="sub">Set it up once. Reports send themselves.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Connect your tools</h3>
+      <p>Link Google Analytics, Meta Ads, and Google Ads in 2 minutes.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Pick your clients</h3>
+      <p>Add your clients and set their reporting schedule.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Reports send automatically</h3>
+      <p>Branded PDF reports land in your client's inbox every month.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <h2>Everything you need, nothing you don't</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="icon">📊</div>
+      <h3>Multi-source data</h3>
+      <p>Google Analytics 4, Meta Ads, Google Ads — all in one report.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🎨</div>
+      <h3>Branded PDFs</h3>
+      <p>Your logo, your colors. Reports look like you made them yourself.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">📅</div>
+      <h3>Automatic scheduling</h3>
+      <p>Monthly, weekly, or custom. Set it once, forget it forever.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">📧</div>
+      <h3>Auto email delivery</h3>
+      <p>Reports go straight to your client's inbox. No manual steps.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">⚡</div>
+      <h3>5-minute setup</h3>
+      <p>OAuth integrations. No API keys, no developer needed.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🔒</div>
+      <h3>Secure by default</h3>
+      <p>Read-only access to your data. Nothing stored unnecessarily.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <h2>Simple pricing</h2>
+  <p class="sub">Start free. Upgrade when you're ready.</p>
+  <div class="plans">
+    <div class="plan">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price">€29<span>/mo</span></div>
+      <div class="plan-desc">For freelancers with a few clients</div>
+      <ul>
+        <li>Up to 3 clients</li>
+        <li>3 data sources</li>
+        <li>Monthly reports</li>
+        <li>Branded PDFs</li>
+      </ul>
+    </div>
+    <div class="plan featured">
+      <div class="plan-name">Agency</div>
+      <div class="plan-price">€79<span>/mo</span></div>
+      <div class="plan-desc">For growing agencies</div>
+      <ul>
+        <li>Up to 15 clients</li>
+        <li>All data sources</li>
+        <li>Custom schedules</li>
+        <li>White-label reports</li>
+        <li>Priority support</li>
+      </ul>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Scale</div>
+      <div class="plan-price">€149<span>/mo</span></div>
+      <div class="plan-desc">Unlimited everything</div>
+      <ul>
+        <li>Unlimited clients</li>
+        <li>All data sources</li>
+        <li>API access</li>
+        <li>Custom branding</li>
+        <li>Dedicated support</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section">
+  <h2>Join the waitlist — it's free</h2>
+  <p>First 50 users get 3 months free when we launch.</p>
+  <div class="cta-form">
+    <input type="email" id="email-cta" placeholder="your@email.com" />
+    <button onclick="subscribe('email-cta', 'success-cta')">Join waitlist</button>
+  </div>
+  <div class="success-msg" id="success-cta" style="background:#d1fae5;color:#065f46;margin-top:1rem;">You're in. We'll email you at launch.</div>
+</section>
+
+<footer>
+  © 2026 ReportMate. Built for agencies that want their weekends back.
+</footer>
+
+<script>
+  // Collect emails locally (for now) + send to a backend when ready
+  const waitlist = JSON.parse(localStorage.getItem('rm_waitlist') || '[]');
+
+  function subscribe(inputId, successId) {
+    const input = document.getElementById(inputId);
+    const email = input.value.trim();
+    if (!email || !email.includes('@')) {
+      input.style.borderColor = '#ef4444';
+      setTimeout(() => input.style.borderColor = '', 1500);
+      return;
+    }
+    if (!waitlist.includes(email)) {
+      waitlist.push(email);
+      localStorage.setItem('rm_waitlist', JSON.stringify(waitlist));
+    }
+    input.value = '';
+    document.getElementById(successId).style.display = 'block';
+
+    // POST to backend when available
+    fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    }).catch(() => {}); // silent fail until backend exists
+  }
+</script>
+
+</body>
+</html>
