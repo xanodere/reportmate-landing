@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://landing-opal-nine-94.vercel.app/</loc><priority>1.0</priority></url>
-  <url><loc>https://landing-opal-nine-94.vercel.app/automated-client-reporting-tool.html</loc><priority>0.9</priority></url>
-  <url><loc>https://landing-opal-nine-94.vercel.app/google-analytics-client-report-automation.html</loc><priority>0.9</priority></url>
-  <url><loc>https://landing-opal-nine-94.vercel.app/meta-ads-monthly-report-generator.html</loc><priority>0.9</priority></url>
-  <url><loc>https://landing-opal-nine-94.vercel.app/ppc-agency-reporting-software.html</loc><priority>0.9</priority></url>
   <url><loc>https://landing-opal-nine-94.vercel.app/agencyanalytics-alternative.html</loc><priority>0.9</priority></url>
-  <url><loc>https://landing-opal-nine-94.vercel.app/freelance-marketing-client-reports.html</loc><priority>0.9</priority></url>
-  <url><loc>https://landing-opal-nine-94.vercel.app/looker-studio-alternative-agencies.html</loc><priority>0.8</priority></url>
-  <url><loc>https://landing-opal-nine-94.vercel.app/dashthis-alternative.html</loc><priority>0.8</priority></url>
-  <url><loc>https://landing-opal-nine-94.vercel.app/how-to-automate-client-reporting.html</loc><priority>0.8</priority></url>
-  <url><loc>https://landing-opal-nine-94.vercel.app/google-ads-report-template-agency.html</loc><priority>0.8</priority></url>
-  <url><loc>https://landing-opal-nine-94.vercel.app/white-label-marketing-reports.html</loc><priority>0.8</priority></url>
+  <url><loc>https://landing-opal-nine-94.vercel.app/automated-client-reporting-tool.html</loc><priority>0.9</priority></url>
+  <url><loc>https://landing-opal-nine-94.vercel.app/blog-agencyanalytics-vs-reportmate.html</loc><priority>0.9</priority></url>
+  <url><loc>https://landing-opal-nine-94.vercel.app/blog-ga4-report-for-clients.html</loc><priority>0.8</priority></url>
+  <url><loc>https://landing-opal-nine-94.vercel.app/blog-how-long-client-reports-take.html</loc><priority>0.8</priority></url>
+  <url><loc>https://landing-opal-nine-94.vercel.app/dashthis-alternative.html</loc><priority>0.85</priority></url>
+  <url><loc>https://landing-opal-nine-94.vercel.app/freelance-marketing-client-reports.html</loc><priority>0.85</priority></url>
+  <url><loc>https://landing-opal-nine-94.vercel.app/google-ads-report-template-agency.html</loc><priority>0.85</priority></url>
+  <url><loc>https://landing-opal-nine-94.vercel.app/google-analytics-client-report-automation.html</loc><priority>0.85</priority></url>
+  <url><loc>https://landing-opal-nine-94.vercel.app/how-to-automate-client-reporting.html</loc><priority>0.85</priority></url>
+  <url><loc>https://landing-opal-nine-94.vercel.app/index.html</loc><priority>0.85</priority></url>
+  <url><loc>https://landing-opal-nine-94.vercel.app/looker-studio-alternative-agencies.html</loc><priority>0.85</priority></url>
+  <url><loc>https://landing-opal-nine-94.vercel.app/meta-ads-monthly-report-generator.html</loc><priority>0.85</priority></url>
+  <url><loc>https://landing-opal-nine-94.vercel.app/ppc-agency-reporting-software.html</loc><priority>0.85</priority></url>
+  <url><loc>https://landing-opal-nine-94.vercel.app/white-label-marketing-reports.html</loc><priority>0.85</priority></url>
 </urlset>
