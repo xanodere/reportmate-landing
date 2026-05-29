@@ -41,6 +41,7 @@ export default async function handler(req, res) {
         contentType: 'application/json',
         token,
         addRandomSuffix: false,
+        allowOverwrite: true,
       });
     }
 
