@@ -1,11 +1,12 @@
-import { put, head, getDownloadUrl } from '@vercel/blob';
+import { put, list } from '@vercel/blob';
 
 const BLOB_FILENAME = 'waitlist.json';
 
 async function getWaitlist() {
   try {
-    const info = await head(BLOB_FILENAME, { token: process.env.BLOB_READ_WRITE_TOKEN });
-    const res = await fetch(info.downloadUrl);
+    const { blobs } = await list({ prefix: BLOB_FILENAME, token: process.env.BLOB_READ_WRITE_TOKEN });
+    if (!blobs.length) return { emails: [], count: 0 };
+    const res = await fetch(blobs[0].downloadUrl || blobs[0].url);
     return await res.json();
   } catch {
     return { emails: [], count: 0 };
@@ -44,6 +45,5 @@ export default async function handler(req, res) {
     await saveWaitlist(waitlist);
   }
 
-  console.log(`[waitlist] ${alreadyExists ? 'duplicate' : 'new'}: ${normalized} (total: ${waitlist.count})`);
   return res.status(200).json({ ok: true, count: waitlist.count });
 }
