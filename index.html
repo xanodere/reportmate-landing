@@ -482,19 +482,38 @@
       setTimeout(() => input.style.borderColor = '', 1500);
       return;
     }
-    if (!waitlist.includes(email)) {
-      waitlist.push(email);
-      localStorage.setItem('rm_waitlist', JSON.stringify(waitlist));
-    }
-    input.value = '';
-    document.getElementById(successId).style.display = 'block';
 
-    // POST to backend when available
-    fetch('/api/subscribe', {
+    const btn = input.nextElementSibling;
+    btn.disabled = true;
+    btn.textContent = '...';
+
+    fetch('https://formspree.io/f/xdkzbvgp', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({ email })
-    }).catch(() => {}); // silent fail until backend exists
+    })
+    .then(r => r.json())
+    .then(() => {
+      if (!waitlist.includes(email)) {
+        waitlist.push(email);
+        localStorage.setItem('rm_waitlist', JSON.stringify(waitlist));
+      }
+      input.value = '';
+      document.getElementById(successId).style.display = 'block';
+    })
+    .catch(() => {
+      // fallback: save locally anyway
+      if (!waitlist.includes(email)) {
+        waitlist.push(email);
+        localStorage.setItem('rm_waitlist', JSON.stringify(waitlist));
+      }
+      input.value = '';
+      document.getElementById(successId).style.display = 'block';
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.textContent = inputId === 'email-hero' ? 'Get early access' : 'Join waitlist';
+    });
   }
 </script>
 
