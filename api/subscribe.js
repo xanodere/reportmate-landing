@@ -1,12 +1,15 @@
 import { put, list } from '@vercel/blob';
 
 const BLOB_FILENAME = 'waitlist.json';
+const TOKEN = process.env.BLOB_READ_WRITE_TOKEN;
 
 async function getWaitlist() {
   try {
-    const { blobs } = await list({ prefix: BLOB_FILENAME, token: process.env.BLOB_READ_WRITE_TOKEN });
+    const { blobs } = await list({ prefix: BLOB_FILENAME, token: TOKEN, mode: 'expanded' });
     if (!blobs.length) return { emails: [], count: 0 };
-    const res = await fetch(blobs[0].downloadUrl || blobs[0].url);
+    const res = await fetch(blobs[0].downloadUrl, {
+      headers: { Authorization: `Bearer ${TOKEN}` },
+    });
     return await res.json();
   } catch {
     return { emails: [], count: 0 };
@@ -15,9 +18,9 @@ async function getWaitlist() {
 
 async function saveWaitlist(data) {
   await put(BLOB_FILENAME, JSON.stringify(data), {
-    access: 'public',
+    access: 'private',
     contentType: 'application/json',
-    token: process.env.BLOB_READ_WRITE_TOKEN,
+    token: TOKEN,
     addRandomSuffix: false,
   });
 }
